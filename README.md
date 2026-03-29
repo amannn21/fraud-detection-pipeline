@@ -75,5 +75,10 @@ Users are flagged as suspicious based on:
 
 ---
 
+## 📈 Visualization
+- Distribution of total transaction amount used to identify outliers
+
+---
+
 ## 🚀 Conclusion
 This project demonstrates how transaction data can be analyzed using Python and SQL to detect suspicious behavior. The approach can be extended into a real-time fraud detection system in production environments.
