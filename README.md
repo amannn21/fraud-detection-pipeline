@@ -1,84 +1,133 @@
-# Fraud Detection Pipeline
+# 🚨 Fraud Detection using Transaction Data
 
-## 📌 Objective
-Identify high-risk users based on transaction behavior such as high transaction amount, frequency, and unusual timing.
+## 📌 Overview
 
----
+This project analyzes transaction data to identify **potentially suspicious users** based on behavioral patterns such as transaction amount, frequency, and night-time activity.
 
-## 🛠 Tools Used
-- Python (Pandas)
-- SQL
-- Google Colab
+A simple rule-based approach is used to flag users showing abnormal transaction behavior.
 
 ---
 
 ## 📊 Dataset
-- 1000 transaction records
-- Columns: user_id, transaction_id, amount, device, location, transaction_time
+
+* File: `transactions.csv`
+* Key columns:
+
+  * `user_id` – Unique user identifier
+  * `transaction_id` – Unique transaction ID
+  * `amount` – Transaction value
+  * `transaction_time` – Timestamp of transaction
 
 ---
 
-## 🏗 Project Structure
-- data/ → raw dataset
-- notebooks/ → analysis using Pandas
-- sql/ → fraud detection queries
-- outputs/ → key insights
+## ⚙️ Methodology
+
+### 1. Data Preparation
+
+* Loaded dataset using Pandas
+* Converted `transaction_time` to datetime
+* Extracted transaction hour
 
 ---
-
-## ⚙️ Approach
-
-### 1. Data Understanding
-- Explored dataset using `.head()`, `.info()`, and `.describe()`
-- Verified data quality and structure
 
 ### 2. Feature Engineering
-- Extracted hour from transaction_time
-- Created `is_night` feature for late-night transactions
+
+* `hour` → Extracted from timestamp
+* `is_night` → Flag for transactions before 6 AM
+
+---
 
 ### 3. Aggregation
-- Calculated total transaction amount per user
-- Counted number of transactions per user
-- Counted night transactions per user
+
+Grouped data by `user_id`:
+
+* Total transaction amount
+* Transaction count
+* Night transaction count
+
+---
 
 ### 4. Fraud Detection Logic
-Users are flagged as suspicious based on:
-- High total transaction amount (> 200,000)
-- High transaction frequency (> 15 transactions)
-- High number of night transactions (≥ 4)
 
-### 5. SQL Analysis
-- Used GROUP BY for aggregation
-- Applied CASE WHEN for conditional logic
-- Used HAVING to filter aggregated results
+Users flagged as suspicious if:
+
+* `total_amount > 200000`
+* `txn_count > 15`
+* `night_txn_count ≥ 4`
 
 ---
 
-## 🔍 Key Insights
-- A small subset of users contributes to most suspicious transactions
-- Night transactions are higher for certain users compared to others
-- High-value transactions tend to occur during late-night hours
-- Combining amount, frequency, and timing improves fraud detection
+## 📈 Output
+
+### Suspicious Users
+
+Identifies users with:
+
+* High spending
+* High activity
+* Unusual timing
 
 ---
 
-## 📊 Sample Output
-- Identified a group of high-risk users based on defined fraud criteria
-- Observed unusual patterns in transaction timing and value
+### Distribution of Transactions
+
+A histogram is used to analyze the distribution of total transaction amounts and identify outliers.
 
 ---
 
-## 🔄 Pipeline Extension
-- Can be automated using scheduling tools like Airflow
-- Can be connected to real-time transaction systems
-- Thresholds can be refined using historical data
+## 🔍 Key Observations
+
+* High-frequency users with large total spend stand out clearly
+* Night transactions contribute significantly to suspicious patterns
+* Only a small subset of users meet all fraud conditions
 
 ---
 
-## 📈 Visualization
-- Distribution of total transaction amount used to identify outliers
+## 💡 Limitations
+
+* Rule-based detection (no ML model)
+* Fixed thresholds
+* No labeled fraud data
 
 ---
 
-## 🚀 Conclusion
-This project demonstrates how transaction data can be analyzed using Python and SQL to detect suspicious behavior. The approach can be extended into a real-time fraud detection system in production environments.
+## 🚀 Future Improvements
+
+* Build **Power BI dashboard** for visualization
+* Add ML model for better prediction
+* Use dynamic thresholds
+
+---
+
+## 🛠️ Tech Stack
+
+* Python (Pandas)
+* Matplotlib
+* Google Colab
+
+---
+
+## ▶️ Run on Google Colab
+
+1. Open the notebook in Colab
+2. Upload the dataset:
+
+```python
+from google.colab import files
+files.upload()
+```
+
+3. Run all cells
+
+---
+
+## 📊 Visualization
+
+<img width="575" height="453" alt="visuals" src="https://github.com/user-attachments/assets/dde9a437-2150-49d6-8897-e5b7fcc37c74" />
+
+---
+
+## 📬 Contact
+
+Aman Baikar
+GitHub: https://github.com/amannn21
